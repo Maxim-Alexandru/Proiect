@@ -13,6 +13,7 @@ int main()
 	Test::test_controller();
 	Test::test_validation();
 	{
+		// datele trebuie citite dintr-un fisier text (cerinta lab 8)
 		Repository repo{};
 		Dog d1{ "Max", "Bulldog", 2, "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn2-www.dogtime.com%2Fassets%2Fuploads%2Fgallery%2Fbulldog-dog-breed-pictures%2F1-threequartersitting.jpg&imgrefurl=https%3A%2F%2Fdogtime.com%2Fdog-breeds%2Fbulldog&docid=q2_vqQdd802x1M&tbnid=YmiGQZQbsBTBJM%3A&vet=10ahUKEwim6OGIiMjhAhUD_aQKHdDLC9QQMwhpKAIwAg..i&w=680&h=453&safe=active&bih=610&biw=1280&q=bulldog&ved=0ahUKEwim6OGIiMjhAhUD_aQKHdDLC9QQMwhpKAIwAg&iact=mrc&uact=8" };
 		Dog d2{ "Cooper", "German Shepherd", 2, "https://www.google.com/imgres?imgurl=https%3A%2F%2Fs3.amazonaws.com%2Fcdn-origin-etr.akc.org%2Fwp-content%2Fuploads%2F2017%2F11%2F12213218%2FGerman-Shepherd-on-White-00.jpg&imgrefurl=https%3A%2F%2Fwww.akc.org%2Fdog-breeds%2Fgerman-shepherd-dog%2F&docid=zr2r0feuK-u4KM&tbnid=zKyuUIVlbbqLIM%3A&vet=10ahUKEwiZkMb1icjhAhVkw8QBHUV2DcoQMwhpKAEwAQ..i&w=729&h=486&safe=active&bih=610&biw=1280&q=german%20shepherd&ved=0ahUKEwiZkMb1icjhAhVkw8QBHUV2DcoQMwhpKAEwAQ&iact=mrc&uact=8" };
