@@ -47,6 +47,7 @@ int Repository::updateDog(const Dog& dog, const std::string& link)
 	return 0;
 }
 
+// aici as folosi copy_if (cerinta lab 8)
 vector<Dog> Repository::getAllDogsByBreedAndAge(const string& breed, const double age)
 {
 	vector<Dog> list;
