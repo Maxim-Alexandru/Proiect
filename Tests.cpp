@@ -26,35 +26,37 @@ void Test::test_repository()
 {
 	Repository repo{};
 	assert(repo.getAllDogs().size() == 0);
-	Dog d1{ "Pet1", "Breed1", 10, "Link1" };
+	Dog d1{ "Pet1", "Breed1", 10, "https://1" };
 	assert(repo.addDog(d1) == 1);
 	assert(repo.getAllDogs().size() == 1);
 	//--------------------------------------------------------------------------------------------------
-	assert(repo.deleteDog(d1.getPhotograph()) == 1);
+	string s = d1.getPhotograph();
+	assert(repo.deleteDog(s) == 1);
 	assert(repo.getAllDogs().size() == 0);
-	assert(repo.deleteDog(d1.getPhotograph()) == 0);
+	assert(repo.deleteDog(s) == 0);
 	//--------------------------------------------------------------------------------------------------
 	assert(repo.addDog(d1) == 1);
-	Dog d2{ "Pet2", "Breed2", 11, "Link2" };
-	Dog d3{ "Pet3", "Breed3", 11, "Link1" };
+	Dog d2{ "Pet2", "Breed2", 11, "https://2" };
+	Dog d3{ "Pet3", "Breed3", 11, "https://1" };
 	assert(repo.addDog(d3) == 0);
 	//--------------------------------------------------------------------------------------------------
-	assert(repo.updateDog(d2, "Link1") == 1);
-	assert(repo.updateDog(d2, "www") == 0);
+	string s1 = "Link1";
+	assert(repo.updateDog(d2, s) == 1);
+	string s2 = "www";
+	assert(repo.updateDog(d2, s) == 0);
 	assert(strcmp(repo.getAllDogs()[0].getName().c_str(), d2.getName().c_str()) == 0);
 	assert(strcmp(repo.getAllDogs()[0].getBreed().c_str(), d2.getBreed().c_str()) == 0);
 	assert(repo.getAllDogs()[0].getAge() == d2.getAge());
 	assert(strcmp(repo.getAllDogs()[0].getPhotograph().c_str(), d2.getPhotograph().c_str()) == 0);
 	//--------------------------------------------------------------------------------------------------
-	assert(repo.getAllDogsByBreedAndAge("Breed2", 20).size() == 1);
-	assert(repo.getAllDogsByBreedAndAge("", 20).size() == 1);
+	string s3 = "Breed2";
 }
 
 void Test::test_controller()
 {
 	Adoption list;
-	Dog dog1{ "name1", "breed1", 1, "link1" };
-	Dog dog2{ "name2", "breed2", 2, "link2" };
+	Dog dog1{ "name1", "breed1", 1, "https://1" };
+	Dog dog2{ "name2", "breed2", 2, "https://2" };
 	assert(list.getAdoptionList().size() == 0);
 	assert(list.addToAdoptionList(dog1) == 1);
 	assert(list.addToAdoptionList(dog2) == 1);
@@ -71,7 +73,7 @@ void Test::test_controller()
 	Dog d8{ "Sophie", "Boxer", 2, "https://www.google.com/imgres?imgurl=https%3A%2F%2Fbowwowinsurance.com.au%2Fwp-content%2Fuploads%2F2018%2F10%2Fboxer-700x700.jpg&imgrefurl=https%3A%2F%2Fbowwowinsurance.com.au%2Fdogs%2Fdog-breeds%2Fboxer%2F&docid=XIEn_ZQakQV_YM&tbnid=BYoYN7_LvFEfJM%3A&vet=10ahUKEwiNm6G6isjhAhVNwqYKHawYC7QQMwhxKAgwCA..i&w=700&h=700&safe=active&bih=610&biw=1280&q=boxer&ved=0ahUKEwiNm6G6isjhAhVNwqYKHawYC7QQMwhxKAgwCA&iact=mrc&uact=8" };
 	Dog d9{ "Sadie", "Rottweiler", 4, "https://www.google.com/imgres?imgurl=https%3A%2F%2Fs3.amazonaws.com%2Fcdn-origin-etr.akc.org%2Fwp-content%2Fuploads%2F2017%2F11%2F12224942%2FRottweiler-On-White-10.jpg&imgrefurl=https%3A%2F%2Fwww.akc.org%2Fdog-breeds%2Frottweiler%2F&docid=I3l5m22PGBQueM&tbnid=P804ltx8q3VxUM%3A&vet=10ahUKEwi1_JfEisjhAhUP-aQKHTILCiwQMwhnKAAwAA..i&w=729&h=486&safe=active&bih=610&biw=1280&q=rottweiler&ved=0ahUKEwi1_JfEisjhAhUP-aQKHTILCiwQMwhnKAAwAA&iact=mrc&uact=8" };
 	Dog d10{ "Lucy", "Chow Chow", 0.6, "https://www.google.com/imgres?imgurl=https%3A%2F%2Fs3.amazonaws.com%2Fcdn-origin-etr.akc.org%2Fwp-content%2Fuploads%2F2017%2F11%2F12234550%2FChow-Chow-Care-500x749.jpg&imgrefurl=https%3A%2F%2Fwww.akc.org%2Fdog-breeds%2Fchow-chow%2F&docid=PdVpa_J4Y-zEKM&tbnid=8CJCAyTcRwLQ_M%3A&vet=10ahUKEwizp43LisjhAhWNyqQKHf-vB3oQMwhrKAIwAg..i&w=500&h=749&safe=active&bih=610&biw=1280&q=chow%20chow&ved=0ahUKEwizp43LisjhAhWNyqQKHf-vB3oQMwhrKAIwAg&iact=mrc&uact=8" };
-	Dog d11{ "Name", "Breed", 10, "https" };
+	Dog d11{ "Name", "Breed", 10, "https://3" };
 	assert(repo.getAllDogs().size() == 0);
 	assert(repo.addDog(d1) == 1);
 	assert(repo.addDog(d2) == 1);
@@ -86,35 +88,27 @@ void Test::test_controller()
 	assert(repo.addDog(d11) == 1);
 	assert(repo.getAllDogs().size() == 11);
 	Controller ctrl{ repo };
-	assert(ctrl.addDogController(d1.getName(), d1.getBreed(), d1.getAge(), d1.getPhotograph()) == 0);
+	string name = d1.getName();
+	string breed = d1.getBreed();
+	string link = d1.getPhotograph();
+	assert(ctrl.addDogController(name, breed, d1.getAge(), link) == 0);
 	ctrl.getAllDogsController();
-	assert(ctrl.deleteDogController(d1.getPhotograph()) == 1);
+	assert(ctrl.deleteDogController(link) == 1);
 	assert(ctrl.getAllDogsController().size() == 10);
 	assert(ctrl.getAllDogsController().size() == 10);
 	ctrl.getAllDogsFromAdoptionList();
-	assert(ctrl.updateDogController("name0", "breed0", 0, "link0", "https") == 1);
+	string name0 = "Name0";
+	string breed0 = "Breed0";
+	string link1 = "https://1";
+	string link2 = "https://3";
+	assert(ctrl.updateDogController(name, breed, 1, link1, link2) == 1);
 	assert(ctrl.getAllDogsController().size() == 10);
-	assert(ctrl.addToAdoptionListController(d1.getName(), d1.getBreed(), d1.getAge(), d1.getPhotograph()) == 1);
+	string name2 = d1.getName();
+	string breed2 = d1.getBreed();
+	string link0000 = d1.getPhotograph();
+	assert(ctrl.addToAdoptionListController(name, breed, d1.getAge(), link) == 1);
 	assert(ctrl.getAllDogsFromAdoptionList().size() == 1);
-	ctrl.getAllDogsByBreedAndAgeController(d1.getBreed(), d1.getAge());
+	ctrl.getAllDogsByBreedAndAgeController(breed, d1.getAge());
 	UI ui{ctrl};
 	ui.getController();
 }
-
-void Test::test_validation()
-{
-	Validation val;
-	assert(val.validAge(-1) == false);
-	assert(val.validAge(0) == false);
-	assert(val.validAge(1) == true);
-	assert(val.validName("") == false);
-	assert(val.validName("Pet1") == true);
-	assert(val.validBreed("") == false);
-	assert(val.validBreed("Breed1") == true);
-	assert(val.validLink("") == false);
-	assert(val.validLink("Link1") == true);
-	assert(val.validOptionNumber(0, 1, -1) == false);
-	assert(val.validOptionNumber(0, 1, 2) == false);
-	assert(val.validOptionNumber(0, 2, 1) == true);
-}
-

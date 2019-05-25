@@ -19,31 +19,31 @@ class UI
 		Input: A string containing a message that will be printed on the screen.
 		Output: A string containing the name of the pet.
 		*/
-		string readName(const string& message);
+		string readName(string& message);
 		/*
 		This function reads the breed of a pet.
 		Input: A string containing a message that will be printed on the screen.
 		Output: A string containing the breed of the pet.
 		*/
-		string readBreed(const string& message);
+		string readBreed(string& message);
 		/*
 		This function reads the link of a pet.
 		Input: A string containing a message that will be printed on the screen.
 		Output: A string containing the link of the pet.
 		*/
-		string readLink(const string& message);
+		string readLink(string& message);
 		/*
 		This function reads the age of a pet.
 		Input: A string containing a message that will be printed on the screen.
 		Output: A double containing the age of the pet.
 		*/
-		double readAge(const string& message);
+		double readAge(string& message);
 		/*
 		This function reads an option in order to access some functionalities.
 		Input: The interval for which the read option is valid.
 		Output: An integer containing the option.
 		*/
-		int readOptionNumber(const int lower, const int upper);
+		int readOptionNumber(int lower, int upper);
 		/*
 		This function prints the main menu, from which the user of the application can choose 2 different interfaces.
 		Input: - 
@@ -62,5 +62,5 @@ class UI
 		Output: -
 		*/
 		static void printMenu();
-		static void printMessages(const string& message) { std::cout << message; }
+		static void printMessages(string& message) { std::cout << message.c_str(); }
 };

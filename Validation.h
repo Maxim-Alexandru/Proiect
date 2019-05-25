@@ -6,9 +6,9 @@ using namespace std;
 class Validation
 {
 	public:
-		static bool validName(const string& name);
-		static bool validBreed(const string& breed);
-		static bool validLink(const string& link);
-		static bool validAge(const double age);
-		static bool validOptionNumber(const int lower, const int upper, const int option);
+		static bool validName(string& name);
+		static bool validBreed(string& breed);
+		static bool validLink(string& link);
+		static bool validAge(double age);
+		static bool validOptionNumber(int lower, int upper, int option);
 };

@@ -24,14 +24,19 @@ class Adoption
 		Input: A Dog data type.
 		Output: An integer data type containing the index.
 		*/
-		int getPositionAdoption(const Dog& dog)
+		int getPositionAdoption(Dog& dog)
 		{
 			for (int i = 0; i < this->list.size(); i++)
 				if (this->list[i].getPhotograph() == dog.getPhotograph())
 					return i;
 			return -1;
 		}
-		int addToAdoptionList(const Dog& dog)
+		/*
+		This function adds a new pet to the adoption list.
+		Input: A variable of type Dog.
+		Output: 1 if the adding was successful, 0 otherwise.
+		*/
+		int addToAdoptionList(Dog& dog)
 		{
 			if (this->getPositionAdoption(dog) == -1)
 			{

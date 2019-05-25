@@ -22,19 +22,19 @@ class Controller
 		Input: strings containig the name of the new pet, its breed and a link to its photograph and its age.
 		Output: 1 if the pet was successfully added to the list, 0 otherwise.
 		*/
-		int addDogController(const std::string& name, const std::string& breed, const double age, const std::string& photograph);
+		int addDogController(std::string& name, std::string& breed, double age, std::string& photograph);
 		/*
 		This function deletes a certain pet from the repository.
 		Input: the link to the photograph of the specific dog.
 		Output: 1 if the pet was successfully deleted to the list, 0 otherwise.
 		*/
-		int deleteDogController(const std::string& photograph);
+		int deleteDogController(std::string& photograph);
 		/*
-		This function updated an existing pet from the repository with a new one.
+		This function updates an existing pet from the repository with a new one.
 		Input: strings containig the name of the new pet, its breed and a link to its photograph and its age..
 		Output: 1 if the pet was successfully updated to the list, 0 otherwise.
 		*/
-		int updateDogController(const std::string& name, const std::string& breed, const double age, const std::string& photograph, const std::string& link);
+		int updateDogController(std::string& name, std::string& breed, double age, std::string& photograph, std::string& link);
 		/*
 		This function returns the list containing all the pets from the repository.
 		Input: -
@@ -46,13 +46,13 @@ class Controller
 		Input: the attributes of a Dog object type.
 		Output: 1 if the dog was successfully added, 0 otherwise.
 		*/
-		int addToAdoptionListController(const std::string& name, const std::string& breed, const double age, const std::string& photograph);
+		int addToAdoptionListController(std::string& name, std::string& breed, double age, std::string& photograph);
 		/*
 		This function retuns a list containing all the dogs from a given breed, having an age smaller than a given one.
 		Input: a string containing the breed and a double containing the age.
 		Output: A DynamicVector data type containing the filtered list.
 		*/
-		vector<Dog> getAllDogsByBreedAndAgeController(const string& breed, const double age);
+		vector<Dog> getAllDogsByBreedAndAgeController(string& breed, double age);
 		/*
 		This function returns the adoption list.
 		Input: -

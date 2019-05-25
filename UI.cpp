@@ -5,72 +5,80 @@
 #include <Windows.h>
 #include <shellapi.h>
 #include <vector>
+#include "CreateFile.h"
 
 using namespace std;
 
-string UI::readName(const string& message)
+string UI::readName(string& message)
 {
 	string name;
 	cout << message;
 	getline(cin, name);
 	while (this->getValidation().validName(name) == false)
 	{
-		UI::printMessages("The name that you typed is not valid. Please enter another one: ");
+		string s = "The name that you typed is not valid. Please enter another one: ";
+		UI::printMessages(s);
 		getline(cin, name);
 	}
 	return name;
 }
 
-string UI::readBreed(const string& message)
+string UI::readBreed(string& message)
 {
 	string breed;
 	cout << message;
 	getline(cin, breed);
 	while (this->getValidation().validBreed(breed) == false)
 	{
-		UI::printMessages("The breed that you typed is not valid Please enter another one: ");
+		string s = "The breed that you typed is not valid Please enter another one: ";
+		UI::printMessages(s);
 		getline(cin, breed);
 	}
 	return breed;
 }
 
-string UI::readLink(const string& message)
+string UI::readLink(string& message)
 {
 	string link;
 	cout << message;
 	getline(cin, link);
 	while (this->getValidation().validLink(link) == false)
 	{
-		UI::printMessages("The link that you typed is not valid. Please enter another one: ");
+		string s = "The link that you typed is not valid. Please enter another one: ";
+		UI::printMessages(s);
 		getline(cin, link);
 	}
 	return link;
 }
 
-double UI::readAge(const string& message)
+double UI::readAge(string& message)
 {
 	double age;
 	cout << message;
 	cin >> age;
 	while (this->getValidation().validAge(age) == false)
 	{
-		UI::printMessages("Please introduce a valid age for the pet: ");
+		string s = "Please introduce a valid age for the pet: ";
+		UI::printMessages(s);
 		cin >> age;
 	}
 	return age;
 }
 
-int UI::readOptionNumber(const int lower, const int upper)
+int UI::readOptionNumber(int lower, int upper)
 {
 	int option;
-	UI::printMessages("------------------------------------------------------ \nPlease choose a mode: ");
+	string s = "------------------------------------------------------ \nPlease choose a mode: ";
+	UI::printMessages(s);
 	cin >> option;
 	while (this->getValidation().validOptionNumber(lower, upper, option) == false)
 	{
-		UI::printMessages("Please introduce a valid option: ");
+		string s = "Please introduce a valid option: ";
+		UI::printMessages(s);
 		cin >> option;
 	}
-	UI::printMessages("------------------------------------------------------ \n \n");
+	s = "------------------------------------------------------ \n \n";
+	UI::printMessages(s);
 	return option;
 }
 
@@ -80,6 +88,7 @@ void UI::printMenuUser()
 	cout << "\t 1) See the dogs in the database. \n";
 	cout << "\t 2) See all dogs of the given breed, having the age less than a given value. \n";
 	cout << "\t 3) Visualize your adoption list. \n";
+	cout << "\t 4) Visualize your adoption list using a specific application. \n";
 	cout << "\t 0) Exit. \n \n";
 }
 
@@ -126,19 +135,37 @@ void UI::run()
 				{
 				case 1:
 				{
-					string name = this->readName("Please enter the name of the pet you want to add: ");
-					string breed = this->readBreed("Please enter the breed of the pet: ");
-					string photograph = this->readLink("Please enter the link that will open the photograph of the pet: ");
-					double age = this->readAge("Please enter the age of the pet: ");
-					if (this->getController().addDogController(name, breed, age, photograph) == 1)
-						UI::printMessages("------------------------------------------------------\nThe pet was successfully added to the list. \n ------------------------------------------------------ \n");
-					else
-						UI::printMessages("------------------------------------------------------ \nError! The pet already exists in the list. \n ------------------------------------------------------ \n \n");
+					string s = "Please enter the name of the pet you want to add: ";
+					string name = this->readName(s);
+					s = "Please enter the breed of the pet: ";
+					string breed = this->readBreed(s);
+					s = "Please enter the link that will open the photograph of the pet: ";
+					string photograph = this->readLink(s);
+					s = "Please enter the age of the pet: ";
+					double age = this->readAge(s);
+					try
+					{
+						if (this->getController().addDogController(name, breed, age, photograph) == 1)
+						{
+							s = "------------------------------------------------------\nThe pet was successfully added to the list. \n ------------------------------------------------------ \n";
+							UI::printMessages(s);
+						}
+						else
+						{ 
+							s = "------------------------------------------------------ \nError! The pet already exists in the list. \n ------------------------------------------------------ \n \n";
+							UI::printMessages(s);
+						}
+					}
+					catch (string ex)
+					{
+						cout << ex;
+					}
 					break;
 				}
 				case 2:
 				{
-					string photograph = this->readLink("Please enter the link of the pet you want to remove: ");
+					string s = "Please enter the link of the pet you want to remove: ";
+					string photograph = this->readLink(s);
 					if (this->getController().deleteDogController(photograph) == 1)
 						cout << "------------------------------------------------------ \nThe pet was successfully deleted to the repository. \n ------------------------------------------------------ \n";
 					else
@@ -147,11 +174,16 @@ void UI::run()
 				}
 				case 3:
 				{
-					string name = this->readName("Please enter the name of the new pet: ");
-					string breed = this->readBreed("Please enter the breed of the new pet: ");
-					string photograph = this->readLink("Please enter the link that will open the photograph of the pet: ");
-					string link = this->readLink("Please enter the link of the pet you want to update: ");
-					double age = this->readAge("Please enter the age of the new pet: ");
+					string s = "Please enter the name of the new pet: ";
+					string name = this->readName(s);
+					s = "Please enter the breed of the new pet: ";
+					string breed = this->readBreed(s);
+					s = "Please enter the link that will open the photograph of the pet: ";
+					string photograph = this->readLink(s);
+					s = "Please enter the link of the pet you want to update: ";
+					string link = this->readLink(s);
+					s = "Please enter the age of the new pet: ";
+					double age = this->readAge(s);
 					if (this->getController().updateDogController(name, breed, age, photograph, link) == 1)
 						cout << "------------------------------------------------------ \nThe pet was successfully updated to the repository. \n ------------------------------------------------------ \n";
 					else
@@ -183,7 +215,7 @@ void UI::run()
 			while (true)
 			{
 				UI::printMenuUser();
-				int command = this->readOptionNumber(0, 3);
+				int command = this->readOptionNumber(0, 4);
 				cin.ignore();
 				if (command == 0)
 				{
@@ -196,7 +228,6 @@ void UI::run()
 				{
 					bool valid = true;
 					int i = 0;
-					vector<Dog> list = this->getController().getAllDogsFromAdoptionList();
 					while (valid == true && i < this->getController().getAllDogsController().size())
 					{
 						if (this->getController().getAllDogsController()[i].getAge() > 1)
@@ -226,12 +257,12 @@ void UI::run()
 						cout << "Answer: ";
 						cin >> adopt;
 						cout << "\n";
+						string name = this->getController().getAllDogsController()[i].getName();
+						string breed = this->getController().getAllDogsController()[i].getBreed();
+						string link = this->getController().getAllDogsController()[i].getPhotograph();
 						if (adopt == "Yes" || adopt == "yes" || adopt == "Y" || adopt == "y")
 							if (this->getController().addToAdoptionListController(
-								this->getController().getAllDogsController()[i].getName(),
-								this->getController().getAllDogsController()[i].getBreed(),
-								this->getController().getAllDogsController()[i].getAge(),
-								this->getController().getAllDogsController()[i].getPhotograph())
+								name, breed, this->getController().getAllDogsController()[i].getAge(), link)
 								== 1)
 								cout << "------------------------------------------------------\n The pet was successfully added to your adoption list. \n------------------------------------------------------ \n \n";
 							else
@@ -258,6 +289,7 @@ void UI::run()
 							else
 								valid = false;
 						}
+						
 					}
 					break;
 				}
@@ -267,7 +299,8 @@ void UI::run()
 					vector<Dog> list;
 					cout << "Please enter breed in order to filter the database: ";
 					getline(cin, breed);
-					double age = this->readAge("Please set an age limit for the pets: ");
+					string s = "Please set an age limit for the pets: ";
+					double age = this->readAge(s);
 					if (breed == "")
 						list = this->getController().getAllDogsController();
 					else
@@ -308,13 +341,11 @@ void UI::run()
 						cout << "Answer: ";
 						cin >> adopt;
 						cout << "\n";
+						string name = list[i].getName();
+						string breed = list[i].getBreed();
+						string link = list[i].getPhotograph();
 						if (adopt == "Yes" || adopt == "yes" || adopt == "Y" || adopt == "y")
-							if (this->getController().addToAdoptionListController(
-								list[i].getName(),
-								list[i].getBreed(),
-								list[i].getAge(),
-								list[i].getPhotograph())
-								== 1)
+							if (this->getController().addToAdoptionListController(name, breed, list[i].getAge(), link) == 1)
 								cout << "------------------------------------------------------\nThe pet was successfully added to your adoption list. \n------------------------------------------------------ \n \n";
 							else
 								cout << "------------------------------------------------------ \nError! The pet may already exist in your adoption list. \n------------------------------------------------------ \n \n";
@@ -359,6 +390,38 @@ void UI::run()
 						cout << "\n";
 
 					}
+					break;
+				}
+				case 4:
+				{
+					string option = "";
+					cout << "What format would you like to choose in order to see your adoption list?\n";
+					cout << "Please enter C in order to visualize your list in an Excel window. \n";
+					cout << "Please enter H in order to visualize your list using a Chrome window. \n";
+					cout << "Your option: ";
+					cin >> option;
+					CreateFiles* file = nullptr;
+					while (option != "C" && option != "H")
+					{
+						cout << "Invalid command. Please enter a new one: ";
+						cin >> option;
+					}
+					if (option == "C")
+					{
+						file = new CSVFile{ this->getController().getAdoption().getAdoptionList() };
+						file->createFile();
+						ShellExecute(NULL, "open", "AdoptionList.csv",
+							NULL, NULL, SW_SHOWNORMAL);
+					}
+					if (option == "H")
+					{
+						file = new Webpage{ this->getController().getAdoption().getAdoptionList() };
+						file->createFile();
+						ShellExecute(NULL, "open", "WebPage.htm",
+							NULL, NULL, SW_SHOWNORMAL);
+					}
+					if (file != nullptr)
+						delete file;
 					break;
 				}
 				default:

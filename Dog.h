@@ -22,13 +22,15 @@ private:
 	*/
 public:
 	Dog();
-	Dog( const string& name, const string& breed, const double age, const string& photograph);
-	string getBreed() const { return this->breed; }
-	string getName() const { return this->name; }
-	double getAge() const { return this->age; }
-	string getPhotograph() const { return this->photograph; }
-	void setBreed(const string& breed) { this->breed = breed; }
-	void setName(const string& name) { this->name = name; }
-	void setAge(const double age) { this->age = age; }
-	void setPhotograph(const string& photograph) { this->photograph = photograph; }
+	Dog(const string& name,const  string& breed,const double& age,const string& photograph);
+	string getBreed() { return this->breed; }
+	string getName() { return this->name; }
+	double getAge() { return this->age; }
+	string getPhotograph() { return this->photograph; }
+	void setBreed(string& breed) { this->breed = breed; }
+	void setName(string& name) { this->name = name; }
+	void setAge(double age) { this->age = age; }
+	void setPhotograph(string& photograph) { this->photograph = photograph; }
+	friend istream& operator>>(istream& is, Dog& d);
+	friend ostream& operator<<(ostream& os, Dog& d);
 };
