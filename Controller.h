@@ -14,7 +14,7 @@ class Controller
 		Adoption list;
 	public:
 		//constructor
-		Controller(const Repository& r): repo(r) {}
+		Controller(const Repository& r, Adoption& list): repo(r), list(list) {}
 		Repository& getRepository() { return this->repo; }
 		Adoption& getAdoption() { return this->list; }
 		/*

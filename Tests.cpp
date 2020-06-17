@@ -87,7 +87,7 @@ void Test::test_controller()
 	assert(repo.addDog(d10) == 1);
 	assert(repo.addDog(d11) == 1);
 	assert(repo.getAllDogs().size() == 11);
-	Controller ctrl{ repo };
+	Controller ctrl{ repo, list };
 	string name = d1.getName();
 	string breed = d1.getBreed();
 	string link = d1.getPhotograph();
@@ -109,6 +109,6 @@ void Test::test_controller()
 	assert(ctrl.addToAdoptionListController(name, breed, d1.getAge(), link) == 1);
 	assert(ctrl.getAllDogsFromAdoptionList().size() == 1);
 	ctrl.getAllDogsByBreedAndAgeController(breed, d1.getAge());
-	UI ui{ctrl};
-	ui.getController();
+	/*UI ui{ctrl};
+	ui.getController();*/
 }
